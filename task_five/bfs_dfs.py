@@ -85,7 +85,30 @@ def bfs(root, colors_qty):
         if current.right is not None:
             queue.append(current.right)
 
+def dfs(root, colors_qty):
+    if root is None:
+        return
+    
+    colors = generate_colors(colors_qty)
+    stack = []
+    stack.append(root)
+
+    while stack:
+        current = stack.pop()
+        current.color = colors.pop(0)
+
+        if current.right:
+            stack.append(current.right)
+
+        if current.left:
+            stack.append(current.left)
+
 data = [0, 4, 5, 10, 1, 3]
+colors_qty = len(data)
 heap_root = build_min_heap(data)
-bfs(heap_root, len(data))
+
+bfs(heap_root, colors_qty)
+draw_tree(heap_root)
+
+dfs(heap_root, colors_qty)
 draw_tree(heap_root)
